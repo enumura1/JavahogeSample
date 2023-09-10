@@ -13,6 +13,6 @@ String afterText = (String)request.getAttribute("responseText");
 %>
 
 <body>
-<%=afterText %>
+<%= afterText %>;
 </body>
 </html>

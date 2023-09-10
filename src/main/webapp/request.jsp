@@ -9,7 +9,7 @@
 <body>
 
 <!-- クライアントからサーバーにデータを送信する -->
-<form method='get' action='HelloServlet'>
+<form method='post' action='HelloServlet'>
     <!-- textNameという名前でテキストをサーバーに送る -->
     <input type="text" name="textName">
     <!-- サーバーにデータを送るためのボタン -->
