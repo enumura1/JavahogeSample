@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>リクエストjsp</h1>
 <!-- クライアントからサーバーにデータを送信する -->
 <form method='post' action='HelloServlet'>
     <!-- textNameという名前でテキストをサーバーに送る -->
@@ -15,8 +15,6 @@
     <!-- サーバーにデータを送るためのボタン -->
     <input type="submit" value="送信">
 </form>
-
-<body>
 
 </body>
 </html>

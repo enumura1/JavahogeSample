@@ -9,10 +9,11 @@
 
 <%
 // サーブレットから送られてきたテキストを受け取る
-String afterText = (String)request.getAttribute("responseText");
+String afterText = (String)request.getAttribute("resultHogeName");
 %>
 
 <body>
+<h1>レスポンスjsp</h1>
 <%= afterText %>;
 </body>
 </html>
