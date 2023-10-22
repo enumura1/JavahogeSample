@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.HogeDTO;
+
 
 @WebServlet("/HelloServlet")
 public class HelloServlet extends HttpServlet {
@@ -28,17 +30,11 @@ public class HelloServlet extends HttpServlet {
 		// DAOのインスタンス
 		HogeDAO sdao = new HogeDAO();
 		
-		// DBに接続
-	    sdao.connect();
-	    
-	    // DBから値を取得
-	    String name = sdao.select(1);
-	    
-	    // DBとの接続を解除
-	    sdao.disconnect();
+		// DTOに格納(○○テーブルのデータ=sdto)
+		HogeDTO sdto = sdao.select();
 		
 	    //検索結果をリクエストスコープに格納
-	    request.setAttribute("resultHogeName", name);
+	    request.setAttribute("sdto", sdto);
 	    
 	    //JSPにフォワード(処理を転送)
 	    RequestDispatcher rd = request.getRequestDispatcher("response.jsp");

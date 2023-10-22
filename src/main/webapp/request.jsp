@@ -11,9 +11,9 @@
 <!-- クライアントからサーバーにデータを送信する -->
 <form method='post' action='HelloServlet'>
     <!-- textNameという名前でテキストをサーバーに送る -->
-    <input type="text" name="textName">
+    <p>以下の「表示ボタン」を押下すると、テーブルのデータを表示します。</p>
     <!-- サーバーにデータを送るためのボタン -->
-    <input type="submit" value="送信">
+    <input type="submit" value="表示">
 </form>
 
 </body>

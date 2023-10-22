@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import bean.HogeBean;
+import bean.HogeDTO;
+
 public class HogeDAO {
 	//DB接続のための変数
 	private final String URL = "jdbc:mysql://localhost/sampledb";
 	private final String USER = "root";
-	private final String PASS = "**********";
+	private final String PASS = "************************";
 	private Connection con = null;
 	
 	
@@ -23,34 +26,52 @@ public class HogeDAO {
 	    }
 	}
 	
-	// DBから値を取得
-	public String select(int stuNo) {
-	    Statement stmt = null;
-	    ResultSet rs = null;
-	    String result = null;
+	public HogeDTO select() {
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		// DTOオブジェクト生成（この時はDTOのリストは空）
+		HogeDTO sdto = new HogeDTO();
+		
+		// SQL（studentテーブルの全件検索）
+	    String sql = "SELECT * FROM student";
 	    
-	    // SQL
-	    String sql = "SELECT name FROM student WHERE no = " + stuNo;
-	    try{
-	      //②ステートメントを生成
-	      stmt = con.createStatement();
-	      //③SQLを実行
-	      rs = stmt.executeQuery(sql);
-	      //④検索結果の処理
-	      rs.next();
-	      result = rs.getString("name");
-	    } catch(Exception e){
-	      e.printStackTrace();
-	    } finally {
-	      try{
-	        if(rs != null) rs.close();
-	        if(stmt != null) stmt.close();
-	      } catch(Exception e){
-	        e.printStackTrace();
-	      }
-	    }
-	    return result;
+	    try {
+	    	// DB接続
+	    	connect();
+	    	stmt = con.createStatement();
+	    	
+	    	// SQLの実行 （テーブルの全てのデータが格納）
+	    	rs = stmt.executeQuery(sql);
+	    	
+	    	while(rs.next()) {
+	    		// beamオブジェクトの生成（この時は空）
+	    		HogeBean sb = new HogeBean();
+	    		
+	    		// ゲッターでstudentテーブルの列項目を取得し、それをセッターでbeanに格納
+	    		sb.setNo(rs.getInt("no"));
+	    		sb.setName(rs.getString("name"));
+	    		sb.setScore(rs.getInt("score"));
+	    		
+	    		// DTOのリストにbeanを要素として追加
+	    		sdto.add(sb);
+	    	}
+	    }catch(Exception e){
+	  	      e.printStackTrace();
+  	    } finally {
+  	      try{
+  	        if(rs != null) rs.close();
+  	        if(stmt != null) stmt.close();
+  	      } catch(Exception e){
+  	        e.printStackTrace();
+  	      }
+  	    }
+	    // DB切断
+	    disconnect();
+  	    return sdto;
+		
 	}
+	
 	
 	//接続解除
 	public void disconnect(){
